@@ -1,0 +1,228 @@
+{"frames": {
+
+"foliage_flower_01.png":
+{
+	"frame": {"x":516,"y":89,"w":68,"h":39},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":68,"h":39},
+	"sourceSize": {"w":68,"h":39}
+},
+"foliage_flower_02.png":
+{
+	"frame": {"x":585,"y":125,"w":29,"h":26},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":26},
+	"sourceSize": {"w":29,"h":26}
+},
+"foliage_flower_03.png":
+{
+	"frame": {"x":585,"y":89,"w":39,"h":14},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":39,"h":14},
+	"sourceSize": {"w":39,"h":14}
+},
+"foliage_sprinkle_01.png":
+{
+	"frame": {"x":585,"y":104,"w":35,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":20},
+	"sourceSize": {"w":35,"h":20}
+},
+"shadow_edge.png":
+{
+	"frame": {"x":516,"y":0,"w":104,"h":53},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":62,"w":104,"h":53},
+	"sourceSize": {"w":128,"h":128}
+},
+"shadow_main.png":
+{
+	"frame": {"x":258,"y":571,"w":128,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":62,"w":128,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+"shadow_point.png":
+{
+	"frame": {"x":516,"y":54,"w":104,"h":34},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":62,"w":104,"h":34},
+	"sourceSize": {"w":128,"h":128}
+},
+"terrain_edge.png":
+{
+	"frame": {"x":0,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"terrain_floor.png":
+{
+	"frame": {"x":0,"y":129,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"terrain_floor2.png":
+{
+	"frame": {"x":0,"y":258,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"terrain_middle.png":
+{
+	"frame": {"x":0,"y":387,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"terrain_ramp_left.png":
+{
+	"frame": {"x":129,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"terrain_ramp_right.png":
+{
+	"frame": {"x":258,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"terrain_shadow.png":
+{
+	"frame": {"x":387,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_botin.png":
+{
+	"frame": {"x":0,"y":516,"w":128,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":128,"h":122},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_botleft.png":
+{
+	"frame": {"x":129,"y":516,"w":128,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":128,"h":122},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_botout.png":
+{
+	"frame": {"x":258,"y":387,"w":128,"h":91},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":128,"h":91},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_botright.png":
+{
+	"frame": {"x":387,"y":258,"w":128,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":128,"h":122},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_leftin.png":
+{
+	"frame": {"x":129,"y":129,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_leftout.png":
+{
+	"frame": {"x":258,"y":479,"w":128,"h":91},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":128,"h":91},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_main.png":
+{
+	"frame": {"x":387,"y":381,"w":128,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":128,"h":122},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_rightin.png":
+{
+	"frame": {"x":258,"y":129,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_rightout.png":
+{
+	"frame": {"x":387,"y":504,"w":128,"h":91},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":128,"h":91},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_topin.png":
+{
+	"frame": {"x":387,"y":129,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_topleft.png":
+{
+	"frame": {"x":129,"y":258,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_topout.png":
+{
+	"frame": {"x":129,"y":387,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"water_topright.png":
+{
+	"frame": {"x":258,"y":258,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "tileset_forest.png",
+	"format": "RGBA8888",
+	"size": {"w":638,"h":638},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:12f679f00f62ef8de35e141fab61c3b9:876810c4592d8d5f9ce6679ed86658da:6235092e5dc2c719b315a4a3f3a661f3$"
+}
+}
