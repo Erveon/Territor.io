@@ -10,6 +10,8 @@ var users = require('./routes/users');
 
 var app = express();
 
+const Tester = require('./game/test/tester');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -48,5 +50,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+new Tester().run();
 
 module.exports = app;
