@@ -25,12 +25,12 @@ var Territory = function() {
     }
 
     function onMouseEnter() {
-        hoverimg = Game.getGame().add.sprite(this.center.x, this.center.y, 'hover');
-        hoverimg.anchor.set(0.5, 0.5);
+        //hoverimg = Game.getGame().add.sprite(this.center.x, this.center.y, 'hover');
+        //hoverimg.anchor.set(0.5, 0.5);
     }
 
     function onMouseLeave() {
-        hoverimg.destroy();
+        //hoverimg.destroy();
     }
 
     return {

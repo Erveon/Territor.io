@@ -5,7 +5,7 @@ var World = (function() {
 		WATER: 1
 	}
 
-	var worldSize = 60;
+	var worldSize = 90;
 	var tiles = [];
 	var territories = [];
 	var water = [];
@@ -26,8 +26,8 @@ var World = (function() {
 		drawWorld();
 		generateFoliage();
 
-		this.text = Game.getGame().add.text(10, 10, "Testing", { "fill": "#fff"});
-		this.text.fixedToCamera = true;
+		//this.text = Game.getGame().add.text(10, 10, "Testing", { "fill": "#fff"});
+		//this.text.fixedToCamera = true;
 	}
 
 	function getGraphics() {
@@ -52,9 +52,9 @@ var World = (function() {
 				hoveringTerritory = undefined;
 			}
 		}
-		var tileText = location.x + ", " + location.y;
+		/*var tileText = location.x + ", " + location.y;
 		this.text.text = "Screen: " + Game.getGame().input.x + ", " + Game.getGame().input.y + "\n"
-		+ "Tile: " + tileText;
+		+ "Tile: " + tileText;*/
 	}
 
 	function generateWorld(game) {

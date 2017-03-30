@@ -1,6 +1,7 @@
 module.exports = class Player {
 
     constructor(connection) {
+		console.log("Player created");
         this.conn = connection;
     }
 

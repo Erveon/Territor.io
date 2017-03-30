@@ -4,6 +4,7 @@ var Game = (function() {
 	var cursors;
 
 	$(document).ready(function() {
+		Conn.create();
 		game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	});
 
@@ -15,6 +16,8 @@ var Game = (function() {
 	function create() {
 		Camera.create(game);
 		World.create(game);
+		game.camera.x = -1000;
+		game.camera.y = 1000;
 	}
 
 	function update() {
