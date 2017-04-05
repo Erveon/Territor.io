@@ -8,7 +8,6 @@ module.exports = class Tile {
 	}
 
 	constructor(chunk, x, y, tiletype) {
-		this._chunk = chunk;
 		this._chunkCoords = { x: x, y: y };
 		this._coords = { x: x + (chunk.coords.x * chunk.size), y: y + (chunk.coords.y * chunk.size)};
 		this._type = tiletype;

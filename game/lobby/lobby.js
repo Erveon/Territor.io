@@ -8,6 +8,10 @@ module.exports = class Lobby {
         this._players = [];
     }
 
+    get max() {
+        return 20;
+    }
+
     get id() {
         return this._id;
     }

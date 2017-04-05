@@ -10,7 +10,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var stats = require('./routes/stats');
 
 var app = express();
 var server = http.createServer(app);
@@ -35,16 +35,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: true,
+    sourceMap: true
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/stats', stats);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -121,6 +121,6 @@ function onListening() {
 }
 
 //new Tester().run();
-new Game(io);
+Game.create(io);
 
 module.exports = app;

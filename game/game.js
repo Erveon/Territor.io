@@ -2,7 +2,9 @@ const LobbyFactory = require("./lobby/lobbyfactory");
 const PlayerFactory = require("./player/playerfactory");
 const ConnectionFactory = require("./sockets/connectionfactory");
 
-module.exports = class Game {
+let game;
+
+const GameInstance = class GameInstance {
 
 	constructor(io) {
 		this._lobbies = new LobbyFactory(this);
@@ -22,4 +24,17 @@ module.exports = class Game {
 		return this._connections;
 	}
 
+};
+
+const create = (io) => {
+	this.game = new GameInstance(io);
+}
+
+const get = () => {
+	return this.game;
+}
+
+module.exports = {
+	create: create,
+	get: get
 }

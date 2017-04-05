@@ -18,6 +18,10 @@ var Menu = (function() {
 			if(username) {
 				console.log("Logging in as " + username);
 				localStorage.setItem("username", username);
+				Conn.getSocket().emit("set username", { "username": username });
+				Conn.getSocket().emit("find lobby", {});
+				$(".loader").toggleClass("hide");
+				$(".input-field").toggleClass("hide");
 			}
 		});
 	}

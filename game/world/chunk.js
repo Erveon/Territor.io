@@ -19,6 +19,17 @@ module.exports = class Chunk {
 		return Chunk.size;
 	}
 
+	get tiles() {
+		return this._tiles;
+	}
+
+	get networkObject() {
+		return {
+			tiles: this._tiles,
+			coords: this._coords
+		};
+	}
+
     generate() {
         for(let x = 0; x < Chunk.size; x++) {
 			this._tiles[x] = [];
