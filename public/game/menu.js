@@ -16,12 +16,12 @@ var Menu = (function() {
 		$("body").on("click", "#play-btn", function() {
 			var username = $("#username").val().trim();
 			if(username) {
+				loading = true;
 				console.log("Logging in as " + username);
 				localStorage.setItem("username", username);
 				Conn.getSocket().emit("set username", { "username": username });
 				Conn.getSocket().emit("find lobby", {});
-				$(".loader").toggleClass("hide");
-				$(".input-field").toggleClass("hide");
+				$("#play-btn, .loader, .input-field").toggleClass("hide");
 			}
 		});
 	}
