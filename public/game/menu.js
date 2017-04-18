@@ -26,4 +26,12 @@ var Menu = (function() {
 		});
 	}
 
+	function fadeOut() {
+		$("#login").fadeOut();
+	}
+
+	return {
+		fadeOut: fadeOut
+	};
+
 })();

@@ -4,7 +4,7 @@ const Territory = require("./territory");
 module.exports = class Chunk {
 
 	static get size() {
-		return 60;
+		return 30;
 	}
 
     constructor(world, x, y) {
@@ -25,8 +25,8 @@ module.exports = class Chunk {
 
 	get networkObject() {
 		return {
-			tiles: this._tiles,
-			coords: this._coords
+			tiles: this.tiles,
+			coords: this.coords
 		};
 	}
 
@@ -38,16 +38,16 @@ module.exports = class Chunk {
 				this._tiles[x][y] = tile;
 			}
 		}
-		this.generateWater();
 		this.generateTerritories();
+		this.generateWater();
     }
 
 	generateWater() {
-		this._tiles.forEach(tileset => {
-			tileset.forEach(tile => {
-				let val = this._world.simplex.noise2D(tile.coords.x / 10, tile.coords.y / 10);
+		this.territories.forEach(territoryset => {
+			territoryset.forEach(territory => {
+				let val = this._world.simplex.noise2D(territory.coords.x / 10, territory.coords.y / 10);
 				if(val > 0.4) {
-					tile.type = Tile.Type.WATER;
+					territory.tiles.forEach(tile => tile.type = Tile.Type.WATER);
 				}
 			});
 		});
@@ -59,7 +59,13 @@ module.exports = class Chunk {
 			this._territories[coordX] = [];
 			for(let y = 0; y < Chunk.size; y += Territory.size) {
 				let coordY = y / Territory.size;
-				let territory = new Territory(this, coordX, coordY);
+				let terTiles = [];
+				for(let terX = x; terX < (x + Territory.size); terX++) {
+					for(let terY = y; terY < (y + Territory.size); terY++) {
+						terTiles.push(this.tiles[terX][terY]);
+					}
+				}
+				let territory = new Territory(this, coordX, coordY, terTiles);
 				this._territories[coordX][coordY] = territory;
 			}
 		}
@@ -71,6 +77,26 @@ module.exports = class Chunk {
 
 	get territories() {
 		return this._territories;
+	}
+
+	get randomTerritory() {
+		let x = Math.floor(Math.random() * this.territories.length);
+		let y = Math.floor(Math.random() * this.territories[x].length);
+		return this.territories[x][y];
+	}
+
+	get neighbours() {
+		let chunks = [];
+		for(let x = -1; x <= 1; x++) {
+			for(let y = -1; y <= 1; y++) {
+				if(x === 0 && y === 0) continue;
+				let chunk = this._world.getChunk(this.coords.x + x, this.coords.y + y);
+				if(chunk !== undefined) {
+					chunks.push(chunk.networkObject);
+				}
+			}
+		}
+		return chunks;
 	}
 
 }

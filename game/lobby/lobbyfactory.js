@@ -32,7 +32,7 @@ module.exports = class LobbyFactory {
 	findLobby(callback) {
 		var lobby;
 		this._lobbies.forEach(l => {
-			if(l.players.length < l.max) {
+			if(l.players.length < l.maxPlayers) {
 				lobby = l;
 				return;
 			}

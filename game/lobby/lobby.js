@@ -8,7 +8,7 @@ module.exports = class Lobby {
         this._players = [];
     }
 
-    get max() {
+    get maxPlayers() {
         return 20;
     }
 

@@ -43,4 +43,14 @@ module.exports = class World {
 		return this._chunks[x][y];
 	}
 
+	get randomChunk() {
+		let x = Math.floor(Math.random() * this.chunks.length);
+		let y = Math.floor(Math.random() * this.chunks[x].length);
+		return this.chunks[x][y];
+	}
+
+	findSpawn() {
+		return this.randomChunk.randomTerritory;
+	}
+
 }

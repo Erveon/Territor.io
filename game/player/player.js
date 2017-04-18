@@ -14,12 +14,13 @@ module.exports = class Player {
         });
         this.conn.on('find lobby', data => {
             self.findLobby();
+            self.spawn();
         });
-        this.conn.on('send chunk', data => {
+        this.conn.on('need chunk', data => {
             if(self.lobby) {
                 let chunk = self.lobby.world.getChunk(data.x, data.y);
                 if(chunk) {
-                    self.conn.emit('receive chunk', { chunk: chunk.networkObject });
+                    self.conn.emit('chunk', chunk.networkObject);
                 }
             }
         });
@@ -34,13 +35,26 @@ module.exports = class Player {
         this.lobby = lobby;
     }
 
+    /**
+    * Finds a territory to spawn the player in,
+    * loads the nearby chunks and puts the player there
+    **/
+    spawn() {
+        const self = this;
+        let territory = this.lobby.world.findSpawn();
+        self.conn.emit('chunk', territory.chunk.networkObject);
+        territory.chunk.neighbours.forEach(networkChunk => {
+            self.conn.emit('chunk', networkChunk);
+        });
+        self.conn.emit('spawn', { territory: territory.networkObject });
+    }
+
     get lobby() {
         return this._lobby;
     }
 
     set lobby(lobby) {
         this._lobby = lobby;
-        this.conn.emit('found lobby', { id: lobby.id });
     }
 
     get conn() {

@@ -40,5 +40,5 @@ var Territory = function() {
         onMouseLeave: onMouseLeave,
         onMouseEnter: onMouseEnter,
         setCenter: setCenter
-    }
-}
+    };
+};

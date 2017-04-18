@@ -8,12 +8,11 @@ var Conn = (function() {
 	}
 
 	function listen() {
-		socket.on('found lobby', function(data) {
-			//console.log("Lobby found: " + data.id);
-			socket.emit('send chunk', { x: 0, y: 0 });
+		socket.on('chunk', function(chunk) {
+			World.loadChunk(chunk);
 		});
-		socket.on('receive chunk', function(data) {
-			console.log(data);
+		socket.on('spawn', function(data) {
+			Menu.fadeOut();
 		});
 	}
 
