@@ -25,8 +25,16 @@ module.exports = class Tile {
 		return this._type;
 	}
 
+	get sprite() {
+		return this._sprite;
+	}
+
 	set type(type) {
 		this._type = type;
+	}
+
+	set sprite(sprite) {
+		this._sprite = sprite;
 	}
 
 }

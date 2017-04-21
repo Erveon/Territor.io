@@ -1,10 +1,12 @@
 var World = (function() {
 
+	var group;
 	var chunks = [];
 	var hoveringTerritory;
 	var graphics;
 
 	function create() {
+		group = Game.getGame().add.group();
 		graphics = Game.getGame().add.graphics();
 		graphics.lineStyle(1, 0x000000, 1);
 		Game.getGame().world.setBounds(-9600, -6000, 19200, 12000);
@@ -15,11 +17,18 @@ var World = (function() {
 	}
 
 	function loadChunk(chunk) {
-		chunk = new Chunk(this, chunk.coords, chunk.tiles);
+		chunk = new Chunk(this, chunk.coords, chunk.tiles, group);
+		console.log("Loading chunk " + chunk.coords.x + ", " + chunk.coords.y);
 		if(chunks[chunk.coords.x] === undefined) chunks[chunk.coords.x] = [];
 		chunks[chunk.coords.x][chunk.coords.y] = chunk;
+		for(var x in chunks) {
+			for(var y in chunks[x]) {
+				var c = chunks[x][y];
+				c.getGroup().z = c.coords.y * chunks.length + c.coords.x;
+			}
+		}
+		group.sort('z', Phaser.Group.SORT_ASCENDING);
 		chunk.draw();
-		console.log("Loading chunk " + chunk.coords.x + ", " + chunk.coords.y);
 	}
 
 	function update() {

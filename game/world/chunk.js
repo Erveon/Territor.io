@@ -23,6 +23,10 @@ module.exports = class Chunk {
 		return this._tiles;
 	}
 
+	get world() {
+		return this._world;
+	}
+
 	get networkObject() {
 		return {
 			tiles: this.tiles,
@@ -30,27 +34,82 @@ module.exports = class Chunk {
 		};
 	}
 
+	getLocalTile(x, y) {
+		if(this.tiles[x] === undefined || this.tiles[x][y] === undefined)
+			return undefined;
+		return this.tiles[x][y];
+	}
+
+	geTile(x, y) {
+		return this.world.getTile(x, y);
+	}
+
     generate() {
-        for(let x = 0; x < Chunk.size; x++) {
-			this._tiles[x] = [];
-			for(let y = 0; y < Chunk.size; y++) {
-				let tile = new Tile(this, x, y, Tile.Type.GRASS);
-				this._tiles[x][y] = tile;
-			}
-		}
+		this.generateTiles();
 		this.generateTerritories();
 		this.generateWater();
+		this.assignTileSprites();
     }
 
+	assignTileSprites() {
+		for(let x = 0; x < this.tiles.length; x++) {
+			let tileset = this.tiles[x];
+			for(let y = 0; y < tileset.length; y++) {
+				let tile = this.tiles[x][y];
+				tile.sprite = this.getTileSprite(tile.coords.x, tile.coords.y);
+			}
+		}
+	}
+
+	generateTiles() {
+        for(let x = 0; x < Chunk.size; x++) {
+			this.tiles[x] = [];
+			for(let y = 0; y < Chunk.size; y++) {
+				let tile = new Tile(this, x, y, Tile.Type.GRASS);
+				this.tiles[x][y] = tile;
+			}
+		}
+	}
+
 	generateWater() {
-		this.territories.forEach(territoryset => {
-			territoryset.forEach(territory => {
-				let val = this._world.simplex.noise2D(territory.coords.x / 10, territory.coords.y / 10);
+		for(let i = 0; i < this.territories.length; i++) {
+			let territoryset = this.territories[i];
+			for(let j = 0; j < territoryset.length; j++) {
+				let territory = territoryset[j];
+				let val = this.world.simplex.noise2D(territory.coords.x / 10, territory.coords.y / 10);
 				if(val > 0.4) {
-					territory.tiles.forEach(tile => tile.type = Tile.Type.WATER);
+					for(let k = 0; k < territory.tiles.length; k++) {
+						let tile = territory.tiles[k];
+						tile.type = Tile.Type.WATER;
+					}
 				}
-			});
-		});
+			}
+		}
+	}
+
+	getTileSprite(x, y) {
+		if(this.world.isWater(x, y)) {
+			let topRight = this.world.isWater(x, y - 1), topLeft = this.world.isWater(x - 1, y),
+				botLeft = this.world.isWater(x, y + 1), botRight = this.world.isWater(x + 1, y),
+				right = this.world.isWater(x + 1, y - 1), left = this.world.isWater(x - 1, y + 1),
+				top = this.world.isWater(x - 1, y - 1), bot = this.world.isWater(x + 1, y + 1);
+			if(!topRight) {
+				if(!topLeft) return 'water_topin';
+				else if(!botRight) return 'water_rightin';
+				else return 'water_topright';
+			} else if(!botLeft) {
+				if(!botRight) return 'water_botin';
+				else if(!topLeft) return 'water_leftin';
+				else return 'water_botleft';
+			} else if(!topLeft) return 'water_topleft';
+			else if(!botRight) return 'water_botright';
+			else if(!right) return 'water_rightout';
+			else if(!left) return 'water_leftout';
+			else if(!top) return 'water_topout';
+			else if(!bot) return 'water_botout';
+			else return 'water_main';
+		}
+		return 'terrain_floor';
 	}
 
 	generateTerritories() {

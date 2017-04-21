@@ -1,6 +1,7 @@
 const Chunk = require("./chunk");
 const Alea = require('alea'); //PRNG to allow seeding
 const SimplexNoise = require("simplex-noise");
+const Territory = require("./territory");
 
 module.exports = class World {
 
@@ -41,6 +42,29 @@ module.exports = class World {
 		if(this._chunks[x] === undefined || this._chunks[x][y] === undefined)
 			return undefined;
 		return this._chunks[x][y];
+	}
+
+	getTile(x, y) {
+		let chunkX = Math.floor(x / Chunk.size), chunkY = Math.floor(y / Chunk.size);
+		let localX = x % Chunk.size, localY = y % Chunk.size;
+		let chunk = this.getChunk(chunkX, chunkY);
+		if(chunk === undefined) return undefined;
+		return chunk.getLocalTile(localX, localY);
+	}
+
+	isWater(tile) {
+		if(tile === undefined) return false;
+		let terrX = Math.floor(tile.coords.x / Territory.size),
+			terrY = Math.floor(tile.coords.y / Territory.size);
+		let noise = this.simplex.noise2D(terrX / 10, terrY / 10);
+		return noise > 0.4;
+	}
+
+	isWater(x, y) {
+		let terrX = Math.floor(x / Territory.size),
+			terrY = Math.floor(y / Territory.size);
+		let noise = this.simplex.noise2D(terrX / 10, terrY / 10);
+		return noise > 0.4;
 	}
 
 	get randomChunk() {
