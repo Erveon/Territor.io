@@ -28,6 +28,14 @@ module.exports = class World {
 		return this._chunks;
 	}
 
+	get chunkSize() {
+		return Chunk.size;
+	}
+
+	get territorySize() {
+		return Territory.size;
+	}
+
     generate() {
         for(let x = 0; x < World.size; x++) {
 			this._chunks[x] = [];
@@ -37,6 +45,10 @@ module.exports = class World {
 			}
 		}
     }
+
+	getChunk(coords) {
+		return this.getChunk(coords.x, coords.y);
+	}
 
 	getChunk(x, y) {
 		if(this._chunks[x] === undefined || this._chunks[x][y] === undefined)

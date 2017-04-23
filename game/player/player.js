@@ -33,6 +33,7 @@ module.exports = class Player {
         let lobby = this._game.lobbies.findLobby();
         lobby.addPlayer(this);
         this.lobby = lobby;
+        this.conn.emit('lobby info', lobby.info);
     }
 
     /**

@@ -1,32 +1,46 @@
-var Chunk = function(world, coords, tiles, wgroup) {
+var Chunk = function(coords, networkTerritories, wgroup) {
 
 	var group = wgroup.add(Game.getGame().add.group());
+	var territories = [];
+	load();
 
     var TileType = {
 		GRASS: 0,
 		WATER: 1
 	}
 
+	function load() {
+		for(var x = 0; x < networkTerritories.length; x++) {
+			territories[x] = [];
+            for(var y = 0; y < networkTerritories[x].length; y++) {
+				var networkTerritory = networkTerritories[x][y];
+                var territory = $.extend(new Territory(group), networkTerritory);
+				territories[x][y] = territory;
+            }
+        }
+	}
+
     function draw() {
-        for(var x = 0; x < tiles.length; x++) {
-            for(var y = 0; y < tiles[x].length; y++) {
-                var tile = tiles[x][y];
-                tile = drawTile(tile, 'tileset_forest', tile._sprite + '.png');
-                tile.anchor.set(0.5, 0);
-                tiles[tile._chunkCoords.x][tile._chunkCoords.y] = tile;
+        for(var x = 0; x < territories.length; x++) {
+            for(var y = 0; y < territories[x].length; y++) {
+                var territory = territories[x][y];
+				territory.draw();
             }
         }
     }
 
-	function drawTile(tile, tileset, sprite) {
-		var position = world.gridToWorld(tile._coords.x, tile._coords.y);
-		return $.extend(group.create(position.x, position.y, tileset, sprite), tile);
+	function getOffset() {
+		return {
+			x: Lobby.getInfo().chunkSize * Lobby.getInfo().territorySize * coords.x,
+			y: Lobby.getInfo().chunkSize * Lobby.getInfo().territorySize * coords.y,
+		};
 	}
 
-	function getTile(x, y) {
-		if(tiles === undefined || tiles[x] === undefined)
-			return undefined;
-		return tiles[x][y];
+	// gets territory by chunk tile
+	function getTerritory(x, y) {
+		var offset = getOffset();
+		return territories[Math.floor((x - offset.x) / Lobby.getInfo().territorySize)]
+						  [Math.floor((y - offset.y) / Lobby.getInfo().territorySize)];
 	}
 
 	function getGroup() {
@@ -35,9 +49,11 @@ var Chunk = function(world, coords, tiles, wgroup) {
 
     return {
         coords: coords,
-        tiles: tiles,
+        territories: territories,
         draw: draw,
-		getGroup: getGroup
+		getGroup: getGroup,
+		getOffset: getOffset,
+		getTerritory: getTerritory
     };
 
 };

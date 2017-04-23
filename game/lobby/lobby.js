@@ -24,6 +24,14 @@ module.exports = class Lobby {
         return this._world;
     }
 
+    get info() {
+        return {
+            "worldSize": World.size,
+            "chunkSize": this.world.chunkSize,
+            "territorySize": this.world.territorySize
+        }
+    }
+
     addPlayer(player) {
         this._players.push(player);
     }

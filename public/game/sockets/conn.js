@@ -14,6 +14,9 @@ var Conn = (function() {
 		socket.on('spawn', function(data) {
 			Menu.fadeOut();
 		});
+		socket.on('lobby info', function(data) {
+			Lobby.load(data);
+		});
 	}
 
 	function getSocket() {

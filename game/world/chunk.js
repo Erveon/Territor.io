@@ -4,7 +4,7 @@ const Territory = require("./territory");
 module.exports = class Chunk {
 
 	static get size() {
-		return 30;
+		return 10;
 	}
 
     constructor(world, x, y) {
@@ -28,8 +28,9 @@ module.exports = class Chunk {
 	}
 
 	get networkObject() {
+		let territories = this.territories.map(set => set.map(t => t.networkObject));
 		return {
-			tiles: this.tiles,
+			territories: territories,
 			coords: this.coords
 		};
 	}
@@ -45,30 +46,55 @@ module.exports = class Chunk {
 	}
 
     generate() {
-		this.generateTiles();
-		this.generateTerritories();
+		this.generateChunk();
 		this.generateWater();
 		this.assignTileSprites();
     }
 
 	assignTileSprites() {
-		for(let x = 0; x < this.tiles.length; x++) {
-			let tileset = this.tiles[x];
-			for(let y = 0; y < tileset.length; y++) {
-				let tile = this.tiles[x][y];
-				tile.sprite = this.getTileSprite(tile.coords.x, tile.coords.y);
+		for(let x = 0; x < this.territories.length; x++) {
+			let territoryset = this.territories[x];
+			for(let y = 0; y < territoryset.length; y++) {
+				let territory = this.territories[x][y];
+				territory.forTiles(tile => tile.sprite = this.getTileSprite(tile.coords.x, tile.coords.y));
 			}
 		}
 	}
 
-	generateTiles() {
-        for(let x = 0; x < Chunk.size; x++) {
-			this.tiles[x] = [];
+	get tileOffset() {
+		return {
+			x: this.coords.x * this.size * Territory.size,
+			y: this.coords.y * this.size * Territory.size,
+		}
+	}
+
+	generateChunk() {
+		for(let x = 0; x < Chunk.size; x++) {
+			this.territories[x] = [];
 			for(let y = 0; y < Chunk.size; y++) {
-				let tile = new Tile(this, x, y, Tile.Type.GRASS);
-				this.tiles[x][y] = tile;
+				this.territories[x][y] = this.generateTerritory(x, y);
 			}
 		}
+	}
+
+	generateTerritory(terX, terY) {
+		let terCoords = { x: terX, y: terY };
+		let terTiles = [];
+		for(let x = 0; x < Territory.size; x++) {
+			terTiles[x] = [];
+			for(let y = 0; y < Territory.size; y++) {
+				terTiles[x][y] = this.generateTile(terCoords, x, y);
+			}
+		}
+		return new Territory(this, terCoords, terTiles);
+	}
+
+	generateTile(terCoords, x, y) {
+		let coords = {
+			x: this.tileOffset.x + (terCoords.x * Territory.size) + x,
+			y: this.tileOffset.y + (terCoords.y * Territory.size) + y,
+		}
+		return new Tile(coords, Tile.Type.GRASS);
 	}
 
 	generateWater() {
@@ -78,10 +104,11 @@ module.exports = class Chunk {
 				let territory = territoryset[j];
 				let val = this.world.simplex.noise2D(territory.coords.x / 10, territory.coords.y / 10);
 				if(val > 0.4) {
-					for(let k = 0; k < territory.tiles.length; k++) {
-						let tile = territory.tiles[k];
-						tile.type = Tile.Type.WATER;
-					}
+					territory.tiles.forEach(tileset => {
+						tileset.forEach(tile => {
+							tile.type = Tile.Type.WATER;
+						});
+					});
 				}
 			}
 		}
@@ -110,24 +137,6 @@ module.exports = class Chunk {
 			else return 'water_main';
 		}
 		return 'terrain_floor';
-	}
-
-	generateTerritories() {
-		for(let x = 0; x < Chunk.size; x += Territory.size) {
-			let coordX = x / Territory.size;
-			this._territories[coordX] = [];
-			for(let y = 0; y < Chunk.size; y += Territory.size) {
-				let coordY = y / Territory.size;
-				let terTiles = [];
-				for(let terX = x; terX < (x + Territory.size); terX++) {
-					for(let terY = y; terY < (y + Territory.size); terY++) {
-						terTiles.push(this.tiles[terX][terY]);
-					}
-				}
-				let territory = new Territory(this, coordX, coordY, terTiles);
-				this._territories[coordX][coordY] = territory;
-			}
-		}
 	}
 
 	get coords() {

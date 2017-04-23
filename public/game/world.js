@@ -17,8 +17,7 @@ var World = (function() {
 	}
 
 	function loadChunk(chunk) {
-		chunk = new Chunk(this, chunk.coords, chunk.tiles, group);
-		console.log("Loading chunk " + chunk.coords.x + ", " + chunk.coords.y);
+		chunk = new Chunk(chunk.coords, chunk.territories, group);
 		if(chunks[chunk.coords.x] === undefined) chunks[chunk.coords.x] = [];
 		chunks[chunk.coords.x][chunk.coords.y] = chunk;
 		for(var x in chunks) {
@@ -31,25 +30,39 @@ var World = (function() {
 		chunk.draw();
 	}
 
-	function update() {
-		var location = screenToGrid(Game.getGame().input.x, Game.getGame().input.y);
+	function getChunk(x, y) {
+		if(chunks[x] === undefined || chunks[x][y] === undefined)
+			return undefined;
+		return chunks[x][y];
+	}
 
-		/*var hovering = getTerritory(Math.floor(location.x / territorySize), Math.floor(location.y / territorySize));
-		if(hoveringTerritory !== hovering) {
-			if(hovering !== undefined) {
-				if(hoveringTerritory)
-					hoveringTerritory.onMouseLeave();
-				hoveringTerritory = hovering;
-				hoveringTerritory.onMouseEnter();
-			} else {
-				if(hoveringTerritory !== undefined)
-					hoveringTerritory.onMouseLeave();
-				hoveringTerritory = undefined;
+	function update() {
+		if(Lobby.isLoaded()) {
+			var hovering = undefined;
+			var location = screenToGrid(Game.getGame().input.x, Game.getGame().input.y);
+			var chunkTiles = (Lobby.getInfo().chunkSize * Lobby.getInfo().territorySize);
+			var chunk = getChunk(Math.floor(location.x / chunkTiles), Math.floor(location.y / chunkTiles));
+
+			if(chunk !== undefined) {
+				hovering = chunk.getTerritory(location.x, location.y);
 			}
-		}*/
-		/*var tileText = location.x + ", " + location.y;
-		this.text.text = "Screen: " + Game.getGame().input.x + ", " + Game.getGame().input.y + "\n"
-		+ "Tile: " + tileText;*/
+
+			if(hoveringTerritory !== hovering) {
+				if(hovering !== undefined) {
+					if(hoveringTerritory)
+						hoveringTerritory.onMouseLeave();
+					hoveringTerritory = hovering;
+					hoveringTerritory.onMouseEnter();
+				} else {
+					if(hoveringTerritory !== undefined)
+						hoveringTerritory.onMouseLeave();
+					hoveringTerritory = undefined;
+				}
+			}
+			/*var tileText = location.x + ", " + location.y;
+			this.text.text = "Screen: " + Game.getGame().input.x + ", " + Game.getGame().input.y + "\n"
+			+ "Tile: " + tileText;*/
+		}
 	}
 
 	function screenToGrid(x, y) {
