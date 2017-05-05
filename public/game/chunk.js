@@ -32,7 +32,7 @@ var Chunk = function(coords, networkTerritories, wgroup) {
 	function getOffset() {
 		return {
 			x: Lobby.getInfo().chunkSize * Lobby.getInfo().territorySize * coords.x,
-			y: Lobby.getInfo().chunkSize * Lobby.getInfo().territorySize * coords.y,
+			y: Lobby.getInfo().chunkSize * Lobby.getInfo().territorySize * coords.y
 		};
 	}
 

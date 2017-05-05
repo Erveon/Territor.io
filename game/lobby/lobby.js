@@ -1,4 +1,5 @@
 const World = require("../world/world");
+const _ = require("underscore");
 
 module.exports = class Lobby {
 
@@ -24,20 +25,32 @@ module.exports = class Lobby {
         return this._world;
     }
 
+	get networkPlayers() {
+		return this._players.map(p => {
+			return {
+				name: p.name,
+				look: p.look
+			}
+		});
+	}
+
     get info() {
         return {
             "worldSize": World.size,
             "chunkSize": this.world.chunkSize,
-            "territorySize": this.world.territorySize
+            "territorySize": this.world.territorySize,
+			"players": this.networkPlayers
         }
     }
 
     addPlayer(player) {
         this._players.push(player);
+		console.log("(" + this.id + ") " + player.conn.id + " connected. " + this.players.length + " in lobby.");
     }
 
     removePlayer(player) {
         this._players = _.without(this._players, player);
+		console.log("(" + this.id + ") " + player.conn.id + " disconnected. " + this.players.length + " in lobby.");
     }
 
 }

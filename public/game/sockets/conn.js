@@ -12,9 +12,11 @@ var Conn = (function() {
 			World.loadChunk(chunk);
 		});
 		socket.on('spawn', function(data) {
+			console.log(data);
 			Menu.fadeOut();
 		});
 		socket.on('lobby info', function(data) {
+			console.log(data);
 			Lobby.load(data);
 		});
 	}

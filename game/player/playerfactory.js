@@ -16,8 +16,11 @@ module.exports = class PlayerFactory {
 		return this._players[connection.id];
 	}
 
-	removePlayer(player) {
-		delete this._players[player.conn.id];
+	removePlayer(connection) {
+		if(this._players[connection.id]) {
+			this._players[connection.id].disconnect();
+			delete this._players[connection.id];
+		}
 	}
 
 	get count() {

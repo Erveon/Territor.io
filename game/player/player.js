@@ -29,6 +29,10 @@ module.exports = class Player {
         });
     }
 
+	disconnect() {
+		if(this.lobby) this.lobby.removePlayer(this);
+	}
+
     findLobby() {
         let lobby = this._game.lobbies.findLobby();
         lobby.addPlayer(this);
@@ -43,6 +47,7 @@ module.exports = class Player {
     spawn() {
         const self = this;
         let territory = this.lobby.world.findSpawn();
+		territory.owner = this.name;
         self.conn.emit('chunk', territory.chunk.networkObject);
         territory.chunk.neighbours.forEach(networkChunk => {
             self.conn.emit('chunk', networkChunk);
@@ -69,5 +74,13 @@ module.exports = class Player {
     set name(name) {
         this._name = name;
     }
+
+	get look() {
+		return this._look || "default";
+	}
+
+	set look(look) {
+		this._look = look;
+	}
 
 }
