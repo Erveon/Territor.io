@@ -3,6 +3,7 @@ var Territory = function(cgroup) {
     var group = cgroup.add(Game.getGame().add.group());
     var hoverimg;
     var center;
+	var style = { fontSize: "40px", fill: "#ffffff", align: "center" };
 
     function draw() {
         for(var x = 0; x < this.tiles.length; x++) {
@@ -26,6 +27,23 @@ var Territory = function(cgroup) {
 		return $.extend(group.create(position.x, position.y, tileset, sprite), tile);
 	}
 
+	function drawCharacter(name) {
+		var base = Game.getGame().add.sprite(this.center.x, this.center.y, 'characters', '01-char_base.png');
+		base.anchor.set(0.5, 0.5);
+		var num = Game.getGame().add.sprite(this.center.x, this.center.y, 'characters', 'dice_numbers-1a5.png');
+		num.anchor.set(0.5, 0.5);
+		var base2 = Game.getGame().add.sprite(this.center.x, this.center.y - 32, 'characters', '01-char_base.png');
+		base2.anchor.set(0.5, 0.5);
+		var num2 = Game.getGame().add.sprite(this.center.x, this.center.y - 32, 'characters', 'dice_numbers-2a6.png');
+		num2.anchor.set(0.5, 0.5);
+		var head = Game.getGame().add.sprite(this.center.x, this.center.y - 64, 'characters', 'z-char_rooster.png');
+		head.anchor.set(0.5, 0.5);
+		var text = Game.getGame().add.text(this.center.x, this.center.y + 64, name, style);
+		text.font = "Troika";
+		text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+    	text.anchor.set(0.5);
+	}
+
     function onMouseEnter() {
         hoverimg = Game.getGame().add.sprite(this.center.x, this.center.y, 'hover');
         hoverimg.anchor.set(0.5, 0.5);
@@ -38,6 +56,7 @@ var Territory = function(cgroup) {
     return {
         draw: draw,
         onMouseLeave: onMouseLeave,
-        onMouseEnter: onMouseEnter
+        onMouseEnter: onMouseEnter,
+		drawCharacter: drawCharacter
     };
 };

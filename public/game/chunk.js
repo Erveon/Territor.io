@@ -36,8 +36,13 @@ var Chunk = function(coords, networkTerritories, wgroup) {
 		};
 	}
 
-	// gets territory by chunk tile
 	function getTerritory(x, y) {
+		console.log(x + ", " + y);
+		return territories[x][y];
+	}
+
+	// gets territory by chunk tile
+	function getTerritoryByTile(x, y) {
 		var offset = getOffset();
 		return territories[Math.floor((x - offset.x) / Lobby.getInfo().territorySize)]
 						  [Math.floor((y - offset.y) / Lobby.getInfo().territorySize)];
@@ -53,7 +58,8 @@ var Chunk = function(coords, networkTerritories, wgroup) {
         draw: draw,
 		getGroup: getGroup,
 		getOffset: getOffset,
-		getTerritory: getTerritory
+		getTerritory: getTerritory,
+		getTerritoryByTile: getTerritoryByTile
     };
 
 };

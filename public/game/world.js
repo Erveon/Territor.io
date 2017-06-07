@@ -44,7 +44,7 @@ var World = (function() {
 			var chunk = getChunk(Math.floor(location.x / chunkTiles), Math.floor(location.y / chunkTiles));
 
 			if(chunk !== undefined) {
-				hovering = chunk.getTerritory(location.x, location.y);
+				hovering = chunk.getTerritoryByTile(location.x, location.y);
 			}
 
 			if(hoveringTerritory !== hovering) {
@@ -92,7 +92,8 @@ var World = (function() {
 		update: update,
 		loadChunk: loadChunk,
 		getGraphics: getGraphics,
-		gridToWorld: gridToWorld
+		gridToWorld: gridToWorld,
+		getChunk: getChunk
 	}
 
 })();

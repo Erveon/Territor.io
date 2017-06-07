@@ -10,7 +10,11 @@ var Game = (function() {
 
 	function preload() {
 		game.load.atlas('tileset_forest', 'images/tileset_forest.png', 'images/tileset_forest.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+		game.load.atlas('characters', 'images/characters.png', 'images/characters.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.image('hover', 'images/sprite_select.png');
+	}
+
+	function loadFonts() {
 	}
 
 	function create() {

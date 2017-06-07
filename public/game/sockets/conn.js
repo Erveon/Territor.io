@@ -14,6 +14,9 @@ var Conn = (function() {
 		socket.on('spawn', function(data) {
 			console.log(data);
 			Menu.fadeOut();
+			var chunk = World.getChunk(data.territory.chunk.x, data.territory.chunk.y);
+			var territory = chunk.getTerritory(data.territory.localCoords.x, data.territory.localCoords.y);
+			territory.drawCharacter(data.territory.owner);
 		});
 		socket.on('lobby info', function(data) {
 			console.log(data);
